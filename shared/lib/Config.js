@@ -16,8 +16,11 @@ export default class Config extends Module {
             this.path = path.resolve(`${APP_DIR}/../config`);
             this.configFile = `${this.path}/${ENVIRONMENT}.conf`;
             this.typesFile = `${this.path}/types.json`;
+            this.envFile = `${path.resolve(`${APP_DIR}/..`)}/.env`;
 
-            this.loadAppConfig()
+            this
+                .loadAppConfig(this.configFile)
+                .then(() => this.loadAppConfig(this.envFile, true))
                 .then(() => {
                     this.mergeOverrides();
                     this.expandArrays();
@@ -25,8 +28,9 @@ export default class Config extends Module {
                     this.setConfigToGlobalScope();
                     this.postProcess();
 
-                    LOG(this.label, 'LOADED');
-                    resolve(this);
+                    LOG(this.label, global.PROJECT_NAME, Object.keys(global));
+
+                    resolve(this)
                 });
         });
     }
@@ -35,10 +39,15 @@ export default class Config extends Module {
      * load the config file
      * @returns {Promise<T>}
      */
-    loadAppConfig() {
-        return fs.readFile(this.configFile)
+    loadAppConfig(configFile, append) {
+        LOG(this.label, 'LOAD', configFile);
+        !append ? append = false : null;
+
+        return fs.readFile(configFile)
             .then(configData => {
-                this.configData = dotenv.parse(configData);
+                const config = dotenv.parse(configData);
+                append === true ? this.configData = Object.assign(this.configData, config) : this.configData = config;
+                LOG(this.label, 'LOADED', configFile);
             })
             .catch(err => {
                 ERROR(this.label, err);

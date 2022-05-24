@@ -10,7 +10,7 @@ services:
   app:
     image: ${PROJECT_NAME}_${SERVICE_NAME}
     working_dir: /home/node/project/app
-    command: "npm start"
+    command: "app-linux64"
     container_name: ${PROJECT_NAME}-${SERVICE_NAME}
     volumes:
       - .:/home/node/project

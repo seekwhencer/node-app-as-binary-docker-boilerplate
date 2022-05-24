@@ -2,9 +2,10 @@
 
 This is a boilerplate to:
 
-- build a binary from a node backend app
-- works with docker
-- interacting with the host system per ssh and ssh key from a docker container
+- build a binary from a node backend app in ES6
+- build docker image
+- development and production mode with docker
+- the app interacts with the host system per ssh and ssh key from a docker container
 - on a raspberry pi 4, for example
 - run it in scale, replicated (soon)
 - as normal user, not as root (soon)
@@ -29,14 +30,17 @@ Then run from the project directory:
 
 This will do:
 
-- Install docker and docker-compose
-- Add the user `pi` to the docker group
-- Create an SSH-key on the docker host
-- Setup config for the host's ssh server (sshd) by modifying `/etc/ssh/sshd_config`
+- You will be asked for every step 
+
+- **1st** - Update the system|
+- **2nd** - Install docker and docker-compose
+  - Add the user `pi` to the docker group
+- **3rd** - Create an SSH-key on the docker host
+- **4th** - Setup config for the host's ssh server (sshd) by modifying `/etc/ssh/sshd_config`
   - activating `PubkeyAuthentication`
   - set the `AuthorizedKeysFile`
 
-> If you have a working docker and docker-compose environment, just skip this step by commenting out the `#installDocker` function call in the `setup.sh` file. (soon as script parameter)
+> You can skip any step
 
 ## production
 At first, for dev or production, you have to install all the node modules. For this, you have to **build** the docker
