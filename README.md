@@ -113,7 +113,7 @@ Then restart your dev container.
 - If no environment was given, the app uses the `default.conf`
 - Values from the `.env` file override the environment values
 - All values from the environment configuration files can be overwritten with environment variables
-- Overrides: **environment.conf file** > **environment variables** > **.env file**
+- Overrides: **environment.conf file** > **.env file** > **environment variables**
 - In the node app, all keys are accessible from the `global.KEY` scope
 - Any config key name is `UPPERCASE`
 

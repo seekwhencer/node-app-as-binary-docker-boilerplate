@@ -22,11 +22,11 @@ export default class Config extends Module {
                 .loadAppConfig(this.configFile)
                 .then(() => this.loadAppConfig(this.envFile, true))
                 .then(() => {
-                    this.mergeOverrides();
-                    this.expandArrays();
-                    this.convertTypes();
-                    this.setConfigToGlobalScope();
-                    this.postProcess();
+                    this.mergeOverrides();          // merge from environment variables
+                    this.expandArrays();            // make arrays from comma seperated lists
+                    this.convertTypes();            // convert boolean and integer values
+                    this.setConfigToGlobalScope();  // assign the config keys to the global scope
+                    this.postProcess();             // do things with the final config keys
 
                     resolve(this)
                 });
