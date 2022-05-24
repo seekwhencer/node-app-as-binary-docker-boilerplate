@@ -1,5 +1,10 @@
 version: "3.6"
 
+networks:
+  app:
+    external: false
+    name: ${PROJECT_NAME}-${SERVICE_NAME}
+
 services:
 
   build:
@@ -14,6 +19,8 @@ services:
       - .:/home/node/project
       - /home/node/project/app/node_modules
       - /home/node/project/shared/node_modules
+    networks:
+      - app
     environment:
       - DEBUG=true
       - ENVIRONMENT=default
