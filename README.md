@@ -39,10 +39,14 @@ This will do:
 > If you have a working docker and docker-compose environment, just skip this step by commenting out the `#installDocker` function call in the `setup.sh` file. (soon as script parameter)
 
 ## production
+At first, for dev or production, you have to install all the node modules. For this, you have to **build** the docker
+image:
 
 ```bash
-  docker-compose -f docker-compose-build.yml build
+  docker-compose -f docker-compose-build.yml up
 ```
+
+> Because `up` fires the `command` from the compose file.
 
 After this, you can use the image with the binary inside.
 
@@ -51,12 +55,10 @@ After this, you can use the image with the binary inside.
 ```
 
 ## development
-
-At first, for dev or production, you have to install all the node modules. For this, you have to **build** the docker
-image:
+Build an actual image - or not  
 
 ```bash
-  docker-compose -f docker-compose-build.yml build
+  docker-compose -f docker-compose-build.yml up
 ```
 
 This creates a binary version of the node app by installing all node modules and build the binary.
@@ -64,11 +66,15 @@ This creates a binary version of the node app by installing all node modules and
 After this, you can use the image with all needed node modules inside.
 
 ```bash
+  # with shell output
   docker-compose -f docker-compose-dev.yml up
+  
+  # or detached from console
+  docker-compose -f docker-compose-dev.yml up -d  
 ```
 
 Now it runs the container, but not the app.  
-Then crawl into the container...
+Then crawl into the container... in a second terminal tab...  
 
 ```bash
 docker exec -it boilerplate-app-dev /bin/bash
@@ -90,7 +96,7 @@ npm start
 
 ```bash
   docker-compose -f docker-compose-build.yml down --rmi all
-  docker-compose -f docker-compose-build.yml build
+  docker-compose -f docker-compose-build.yml up
 ```
 
 Then restart your dev container.
