@@ -1,0 +1,27 @@
+version: "3.6"
+
+networks:
+  app:
+    external: false
+    name: ${PROJECT_NAME}-${SERVICE_NAME}
+
+services:
+
+  app:
+    image: ${PROJECT_NAME}_${SERVICE_NAME}
+    working_dir: /home/node/project/app
+    command: 'tail -f /dev/null'
+    container_name: ${PROJECT_NAME}-${SERVICE_NAME}-dev
+    volumes:
+      - .:/home/node/project
+      - /home/node/project/app/node_modules
+      - /home/node/project/shared/node_modules
+      - /root/.ssh/${PROJECT_NAME}-${SERVICE_NAME}-docker:/home/node/.ssh/${PROJECT_NAME}-${SERVICE_NAME}-docker
+    networks:
+      - app
+    extra_hosts:
+      - "host:${HOST_IP}"
+    environment:
+      - DEBUG=true
+      - ENVIRONMENT=default
+      - NODE_ENV=development
