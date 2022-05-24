@@ -81,7 +81,41 @@ setSSHServerConfig() {
 #----------------------------------------------------------------------------------------------------------------------
 
 loadConfig
-update
-installDocker
-createSSHKey
-setSSHServerConfig
+
+echo ""
+echo "Update system?"
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes ) update; break;;
+        No ) break;;
+    esac
+done
+
+echo ""
+echo "Install Docker?"
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes ) installDocker; break;;
+        No ) break;;
+    esac
+done
+
+echo ""
+echo "Create SSH key?"
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes ) createSSHKey; break;;
+        No ) break;;
+    esac
+done
+
+echo ""
+echo "Update SSH server config?"
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes ) setSSHServerConfig; break;;
+        No ) break;;
+    esac
+done
+
+echo ""
