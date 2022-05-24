@@ -28,8 +28,6 @@ export default class Config extends Module {
                     this.setConfigToGlobalScope();
                     this.postProcess();
 
-                    LOG(this.label, global.PROJECT_NAME, Object.keys(global));
-
                     resolve(this)
                 });
         });

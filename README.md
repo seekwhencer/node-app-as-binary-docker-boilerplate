@@ -107,8 +107,23 @@ Then restart your dev container.
 
 ## environment and configuration
 
-- The `.env` file - primary for docker-compose - but also used by the `setup.sh` script
+- The `.env` file - primary for docker-compose - but also used by the `setup.sh` script and the node app
 - The environment configuration is stored in `config/` with files like `default.conf`
 - The "environment" equals their `ENVIRONMENT` variable and can be: `dev` or `prod` or `default` or `something`
 - If no environment was given, the app uses the `default.conf`
+- Values from the `.env` file override the environment values
 - All values from the environment configuration files can be overwritten with environment variables
+- Overrides: **environment.conf file** > **environment variables** > **.env file**
+- In the node app, all keys are accessible from the `global.KEY` scope
+- Any config key name is `UPPERCASE`
+
+### give an environment
+```bash
+  # state without given ENVIRONMENT variable
+  export ENVIRONMENT="default" && node run ...
+  
+  # with a production ENVIRONMENT
+  export ENVIRONMENT="prod" && node run ...
+```
+
+If a `ENVIRONMENT` was given, it's config file must exist: `config/prod.conf`
